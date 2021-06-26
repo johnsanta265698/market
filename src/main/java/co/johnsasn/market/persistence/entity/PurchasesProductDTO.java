@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "compras_productos")
 @Getter
 @Setter
-public class PurchasesProduct {
+public class PurchasesProductDTO {
 
     @EmbeddedId
     private PurchasesProductPK purchasesProductId;
@@ -24,11 +24,11 @@ public class PurchasesProduct {
 
     @ManyToOne
     @JoinColumn(name = "id_compra", insertable = false, updatable = false)
-    private Purchase purchase;
+    private PurchaseDTO purchase;
 
     @ManyToOne
     @JoinColumn(name = "id_producto", insertable = false, updatable = false)
-    private Product product;
+    private ProductDTO product;
 }
 
 

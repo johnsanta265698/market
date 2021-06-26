@@ -1,37 +1,51 @@
 package co.johnsasn.market.persistence;
 
+import co.johnsasn.market.domain.Product;
+import co.johnsasn.market.domain.repository.IProductRepository;
 import co.johnsasn.market.persistence.crud.ProductCrudRepository;
-import co.johnsasn.market.persistence.entity.Product;
+import co.johnsasn.market.persistence.entity.ProductDTO;
+import co.johnsasn.market.persistence.mapper.ProductMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ProductRepository {
+public class ProductRepository  implements IProductRepository {
 
     private ProductCrudRepository productCrudRepository;
+    private ProductMapper productMapper;
 
+    @Override
     public List<Product> getAll(){
-        return (List<Product>) productCrudRepository.findAll();
+        List<ProductDTO> productsDTO = (List<ProductDTO>) productCrudRepository.findAll();
+        return productMapper.toProducts(productsDTO);
     }
 
-    public List<Product> getByCategory(int categoryId){
-        return productCrudRepository.findByCategoryIdOrderByNameAsc(categoryId);
+    @Override
+    public Optional<List<Product>> getByCategory(int categoryId){
+        List<ProductDTO> productsDTO = productCrudRepository.findByCategoryIdOrderByNameAsc(categoryId);
+        return Optional.of(productMapper.toProducts(productsDTO));
     }
 
-    public Optional<List<Product>> getScarse(int stock, boolean status){
-        return productCrudRepository.findByStockLessThanAndStatus(stock, status);
+    @Override
+    public Optional<List<Product>> getScarseProducts(int quantity) {
+        Optional<List<ProductDTO>> productsDTO = productCrudRepository.findByStockLessThanAndStatus(quantity, true);
+        return productsDTO.map(products -> productMapper.toProducts(products));
     }
 
-    public Optional<Product> getProduct(int productId){
-        return productCrudRepository.findById(productId);
+    @Override
+    public Optional<Product> getProducts(int productId) {
+        return productCrudRepository.findById(productId).map(product -> productMapper.toProduct(product));
     }
 
-    public Product save(Product product){
-        return productCrudRepository.save(product);
+    @Override
+    public Product save(Product product) {
+        ProductDTO productDTO = productMapper.toProductEntity(product);
+        return productMapper.toProduct(productCrudRepository.save(productDTO));
     }
 
+    @Override
     public void delete(int productId){
         productCrudRepository.deleteById(productId);
     }

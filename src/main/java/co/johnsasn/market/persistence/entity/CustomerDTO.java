@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "clientes")
 @Getter
 @Setter
-public class Customer {
+public class CustomerDTO {
 
     @Id
     private String id;
@@ -32,5 +32,5 @@ public class Customer {
     private String email;
 
     @OneToMany(mappedBy = "customer")
-    List<Purchase> purchases;
+    List<PurchaseDTO> purchases;
 }
