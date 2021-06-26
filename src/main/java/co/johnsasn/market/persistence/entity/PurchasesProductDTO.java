@@ -1,14 +1,9 @@
 package co.johnsasn.market.persistence.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "compras_productos")
-@Getter
-@Setter
 public class PurchasesProductDTO {
 
     @EmbeddedId
@@ -29,6 +24,54 @@ public class PurchasesProductDTO {
     @ManyToOne
     @JoinColumn(name = "id_producto", insertable = false, updatable = false)
     private ProductDTO product;
+
+    public PurchasesProductPK getPurchasesProductId() {
+        return purchasesProductId;
+    }
+
+    public void setPurchasesProductId(PurchasesProductPK purchasesProductId) {
+        this.purchasesProductId = purchasesProductId;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public PurchaseDTO getPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(PurchaseDTO purchase) {
+        this.purchase = purchase;
+    }
+
+    public ProductDTO getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductDTO product) {
+        this.product = product;
+    }
 }
 
 

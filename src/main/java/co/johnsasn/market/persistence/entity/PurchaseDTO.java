@@ -1,16 +1,11 @@
 package co.johnsasn.market.persistence.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "compras")
-@Getter
-@Setter
 public class PurchaseDTO {
 
     @Id
@@ -39,4 +34,68 @@ public class PurchaseDTO {
 
     @OneToMany(mappedBy = "product")
     private List<PurchasesProductDTO> productsOfAPurchase;
+
+    public Integer getPurchaseId() {
+        return purchaseId;
+    }
+
+    public void setPurchaseId(Integer purchaseId) {
+        this.purchaseId = purchaseId;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getCommentary() {
+        return commentary;
+    }
+
+    public void setCommentary(String commentary) {
+        this.commentary = commentary;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public CustomerDTO getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerDTO customer) {
+        this.customer = customer;
+    }
+
+    public List<PurchasesProductDTO> getProductsOfAPurchase() {
+        return productsOfAPurchase;
+    }
+
+    public void setProductsOfAPurchase(List<PurchasesProductDTO> productsOfAPurchase) {
+        this.productsOfAPurchase = productsOfAPurchase;
+    }
 }
