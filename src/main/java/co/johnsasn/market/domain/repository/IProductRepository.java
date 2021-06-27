@@ -10,7 +10,7 @@ public interface IProductRepository {
     List<Product> getAll();
     Optional<List<Product>> getByCategory(int categoryId);
     Optional<List<Product>> getScarseProducts(int quantity);
-    Optional<Product> getProducts(int productId);
+    Optional<Product> getProduct(int productId);
     Product save(Product product);
     void delete(int productId);
 
